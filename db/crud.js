@@ -53,11 +53,9 @@ modelList.forEach((model) => {
             });
     });
     models.route(`/${model}/:id`).get(function (req, res) {
-        let db_connect = dbo.getDb(dbName);
+        let db_connect = dbo.getDb();
         let myquery = { _id: ObjectId( req.params.id )};
-        db_connect
-            .collection(model)
-            .findOne(myquery, function (err, result) {
+        db_connect.collection(model).findOne(myquery, function (err, result) {
                 if (err) throw err;
                 res.json(result);
             });
@@ -65,7 +63,7 @@ modelList.forEach((model) => {
 
 // This section will help you create a new record.
     models.route(`/${model}/add`).post(function (req, response) {
-        let db_connect = dbo.getDb(dbName);
+        let db_connect = dbo.getDb();
         console.log(req.body)
         db_connect.collection(model).insertOne(req.body, function (err, res) {
             if (err) throw err;
@@ -75,7 +73,7 @@ modelList.forEach((model) => {
 
 // This section will help you update a record by id.
     models.route(`/${model}/update/:id`).post(function (req, response) {
-        let db_connect = dbo.getDb(dbName);
+        let db_connect = dbo.getDb();
         let myquery = { _id: ObjectId( req.params.id )};
         console.log(req.body)
         console.log(req.params.id)
@@ -93,7 +91,7 @@ modelList.forEach((model) => {
 
 // This section will help you delete a record
     models.route(`/${model}/:id`).delete((req, response) => {
-        let db_connect = dbo.getDb(dbName);
+        let db_connect = dbo.getDb();
         let myquery = { _id: ObjectId( req.params.id )};
         db_connect.collection(model).deleteOne(myquery, function (err, obj) {
             if (err) throw err;
