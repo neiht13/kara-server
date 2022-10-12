@@ -27,6 +27,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: run install
-        run: npn install
+        run: npm install
       - name: run server  
         run: node server.js
