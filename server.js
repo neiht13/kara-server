@@ -25,7 +25,7 @@ app.listen(port, () => {
 const ObjectId = require("mongodb").ObjectId;
 const dbName = "employees";
 
-  app.get(`/karaoke`,function (req, res) {
+app.get(`/karaoke`, (req, res) => {
     let db_connect = dbo.getDb(dbName);
     db_connect
         .collection("karaoke")
