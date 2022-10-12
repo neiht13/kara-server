@@ -1,4 +1,5 @@
 const express = require("express");
+const axios = require("axios");
 const models = express.Router();
 const dbo = require("../db/conn");
 
@@ -16,13 +17,39 @@ let modelList = [
 modelList.forEach((model) => {
     models.route(`/${model}`).get(function (req, res) {
         console.log("model",model);
-        let db_connect = dbo.getDb();
-        db_connect
-            .collection(model)
-            .find({})
-            .toArray(function (err, result) {
-                if (err) throw err;
-                res.json(result);
+        // let db_connect = dbo.getDb();
+        // db_connect
+        //     .collection(model)
+        //     .find({})
+        //     .toArray(function (err, result) {
+        //         if (err) throw err;
+        //         res.json(result);
+        //     });
+        var data = JSON.stringify({
+            "collection": "employees",
+            "database": "karaoke",
+            "dataSource": "Cluster0",
+            "projection": {}
+        });
+
+        var config = {
+            method: 'post',
+            url: 'https://data.mongodb-api.com/app/data-sgxvu/endpoint/data/v1/action/find',
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "http://localhost:3000",
+                'api-key': '3T0AJq674kua5xCKYoZeWEAqbCdlgidtfqWxwJ0O5G0lzW1bD55xzwaXtllwSK2z',
+            },
+            crossdomain: true,
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch(function (error) {
+                console.log(error);
             });
     });
     models.route(`/${model}/:id`).get(function (req, res) {
