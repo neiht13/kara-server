@@ -10,7 +10,9 @@ app.use(express.urlencoded({limit: '50mb'}));
 app.use(require("./db/crud"));
 // get driver connection
 const dbo = require("./db/conn");
-
+app.get("/vercel", (req, res) => {
+  res.send("Express on Vercel");
+});
 app.listen(port, () => {
   // perform a database connection when server starts
   dbo.connectToServer(function (err) {
