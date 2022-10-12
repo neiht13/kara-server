@@ -24,17 +24,11 @@ app.listen(port, () => {
 
 const ObjectId = require("mongodb").ObjectId;
 const dbName = "employees";
-let modelList = [
-  "records",
-  "users",
-  "nhatky",
-  "karaoke"
-]
 
   app.get(`/karaoke`,function (req, res) {
     let db_connect = dbo.getDb(dbName);
     db_connect
-        .collection(model)
+        .collection("karaoke")
         .find({})
         .toArray(function (err, result) {
           if (err) throw err;
@@ -45,7 +39,7 @@ let modelList = [
     let db_connect = dbo.getDb(dbName);
     let myquery = { _id: ObjectId( req.params.id )};
     db_connect
-        .collection(model)
+        .collection("karaoke")
         .findOne(myquery, function (err, result) {
           if (err) throw err;
           res.json(result);
@@ -56,7 +50,7 @@ let modelList = [
   app.post(`/karaoke/add` , function (req, response) {
     let db_connect = dbo.getDb(dbName);
     console.log(req.body)
-    db_connect.collection(model).insertOne(req.body, function (err, res) {
+    db_connect.collection("karaoke").insertOne(req.body, function (err, res) {
       if (err) throw err;
       response.json(res);
     });
@@ -72,7 +66,7 @@ let modelList = [
       $set: req.body,
     };
     db_connect
-        .collection(model)
+        .collection("karaoke")
         .updateOne(myquery, newvalues, function (err, res) {
           if (err) throw err;
           console.log("1 document updated");
@@ -84,7 +78,7 @@ let modelList = [
   app.delete(`/karaoke/:id` , (req, response) => {
     let db_connect = dbo.getDb(dbName);
     let myquery = { _id: ObjectId( req.params.id )};
-    db_connect.collection(model).deleteOne(myquery, function (err, obj) {
+    db_connect.collection("karaoke").deleteOne(myquery, function (err, obj) {
       if (err) throw err;
       console.log("1 document deleted");
       response.json(obj);
