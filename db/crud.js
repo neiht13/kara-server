@@ -15,7 +15,8 @@ let modelList = [
 
 modelList.forEach((model) => {
     models.route(`/${model}`).get(function (req, res) {
-        let db_connect = dbo.getDb(dbName);
+        console.log("model",model);
+        let db_connect = dbo.getDb();
         db_connect
             .collection(model)
             .find({})
