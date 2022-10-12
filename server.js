@@ -31,8 +31,7 @@ let modelList = [
   "karaoke"
 ]
 
-modelList.forEach((model) => {
-  app.get(`/${model}`,function (req, res) {
+  app.get(`/karaoke`,function (req, res) {
     let db_connect = dbo.getDb(dbName);
     db_connect
         .collection(model)
@@ -42,7 +41,7 @@ modelList.forEach((model) => {
           res.json(result);
         });
   });
-  app.get(`/${model}/:id` , function (req, res) {
+  app.get(`/karaoke/:id` , function (req, res) {
     let db_connect = dbo.getDb(dbName);
     let myquery = { _id: ObjectId( req.params.id )};
     db_connect
@@ -54,7 +53,7 @@ modelList.forEach((model) => {
   });
 
 // This section will help you create a new record.
-  app.post(`/${model}/add` , function (req, response) {
+  app.post(`/karaoke/add` , function (req, response) {
     let db_connect = dbo.getDb(dbName);
     console.log(req.body)
     db_connect.collection(model).insertOne(req.body, function (err, res) {
@@ -64,7 +63,7 @@ modelList.forEach((model) => {
   });
 
 // This section will help you update a record by id.
-  app.post(`/${model}/update/:id` , function (req, response) {
+  app.post(`/karaoke/update/:id` , function (req, response) {
     let db_connect = dbo.getDb(dbName);
     let myquery = { _id: ObjectId( req.params.id )};
     console.log(req.body)
@@ -82,7 +81,7 @@ modelList.forEach((model) => {
   });
 
 // This section will help you delete a record
-  app.delete(`/${model}/:id` , (req, response) => {
+  app.delete(`/karaoke/:id` , (req, response) => {
     let db_connect = dbo.getDb(dbName);
     let myquery = { _id: ObjectId( req.params.id )};
     db_connect.collection(model).deleteOne(myquery, function (err, obj) {
@@ -92,4 +91,3 @@ modelList.forEach((model) => {
     });
   });
 
-})
