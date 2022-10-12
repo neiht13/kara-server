@@ -38,7 +38,6 @@ client.connect(function (err, db) {
         _db = db.db("employees");
         console.log("Successfully connected to MongoDB.");
     }
-    return callback(err);
 });
 const getDb = () => {
     return _db;
