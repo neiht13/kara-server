@@ -11,16 +11,44 @@ let modelList = [
     "records",
     "users",
     "nhatky",
+    "chungnhan",
+    "info",
+    "htx",
     "karaoke"
 ]
 
 modelList.forEach((model) => {
+    models.route(`/login`).post(function (req, res) {
+        let db_connect = dbo.getDb();
+        db_connect
+            .collection("htx")
+            .find(req.body)
+            .toArray(function (err, result) {
+                if (err) throw err;
+                res.json(result);
+            });
+    });
+
     models.route(`/${model}`).get(function (req, res) {
         console.log("model",model);
         let db_connect = dbo.getDb();
         db_connect
             .collection(model)
             .find({})
+            .toArray(function (err, result) {
+                if (err) throw err;
+                res.json(result);
+            });
+
+    });
+
+    models.route(`/${model}`).post(function (req, res) {
+        console.log("model",model);
+        console.log("body",req.body);
+        let db_connect = dbo.getDb();
+        db_connect
+            .collection(model)
+            .find(req.body)
             .toArray(function (err, result) {
                 if (err) throw err;
                 res.json(result);
