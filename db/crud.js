@@ -14,7 +14,9 @@ let modelList = [
     "chungnhan",
     "info",
     "htx",
-    "karaoke"
+    "karaoke",
+    "karaoke2",
+    "score",
 ]
 
 modelList.forEach((model) => {
@@ -29,7 +31,7 @@ modelList.forEach((model) => {
             });
     });
 
-    models.route(`/${model}`).get(function (req, res) {
+    models.route(`/${model}/all`).get(function (req, res) {
         console.log("model",model);
         let db_connect = dbo.getDb();
         db_connect
